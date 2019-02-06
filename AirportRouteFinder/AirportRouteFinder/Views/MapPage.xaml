@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:AirportRouteFinder.Models"
+             xmlns:res="clr-namespace:AirportRouteFinder.Resources"
+             x:Class="AirportRouteFinder.Views.MapPage"
+             Title="{Binding UserSearch}">
+    <ContentPage.Content>
+        <StackLayout>
+            
+            <StackLayout 
+                VerticalOptions="CenterAndExpand"
+                IsVisible="{Binding SearchComplete, Converter={StaticResource InverseBooleanConverter}}">
+                <Label 
+                    Text="{x:Static res:Strings.SearchingText}" 
+                    FontSize="28"
+                    HorizontalOptions="Center"
+                    Margin="50"/>
+                <ActivityIndicator
+                    IsRunning="true"
+                    Color="Gray"
+                    Margin="50,0"/>
+            </StackLayout>
+            
+            <StackLayout 
+                VerticalOptions="FillAndExpand"
+                IsVisible="{Binding SearchComplete}">
+                <Label 
+                    IsVisible="{Binding RoutePossible, Converter={StaticResource InverseBooleanConverter}}"
+                    Text="{x:Static res:Strings.NoPossibleRouteText}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand"
+                    FontSize="Large"/>
+                <models:CustomMap
+                    x:Name="Map"
+                    IsVisible="{Binding RoutePossible}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    MapType="Street" />
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

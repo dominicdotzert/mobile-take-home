@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:res="clr-namespace:AirportRouteFinder.Resources"
+             x:Class="AirportRouteFinder.Views.MainPage"
+             Title="Search">
+
+    <ContentPage.Resources>
+        <Keyboard x:Key="AllCapsKeyboard" x:FactoryMethod="Create">
+            <x:Arguments>
+                <KeyboardFlags>CapitalizeCharacter</KeyboardFlags>
+            </x:Arguments>
+        </Keyboard>
+    </ContentPage.Resources>
+
+    <StackLayout VerticalOptions="CenterAndExpand">
+        <Label 
+            Text="{Binding Text}" 
+            FontSize="32"
+            HorizontalOptions="Center"
+            Margin="50"/>
+        
+        <ActivityIndicator
+            IsVisible="{Binding DataIsLoaded, Converter={StaticResource InverseBooleanConverter}}"
+            IsRunning="true"
+            Color="Gray"
+            Margin="50,0"/>
+        
+        <StackLayout 
+            IsVisible="{Binding DataIsLoaded}"
+            HorizontalOptions="CenterAndExpand"
+            Orientation=" Horizontal">
+            <Editor
+                Text="{Binding Origin, Mode=TwoWay}"
+                Keyboard="{StaticResource AllCapsKeyboard}"
+                WidthRequest="100"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Placeholder="{x:Static res:Strings.OriginPlaceholderText}"
+                MaxLength="3"/>
+            <Label
+                Margin="0,20"
+                Text="TO"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand"
+                FontAttributes="Bold"/>
+            <Editor 
+                Text="{Binding Destination, Mode=TwoWay}"
+                Keyboard="{StaticResource AllCapsKeyboard}"
+                WidthRequest="110"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Placeholder="{x:Static res:Strings.DestinationPlaceholderText}"
+                MaxLength="3"/>
+        </StackLayout>
+        
+        <Button
+            IsVisible="{Binding DataIsLoaded}"
+            Text="{x:Static res:Strings.SearchBtnText}"
+            Command="{Binding SearchCommand}"
+            HorizontalOptions="Center"
+            Margin="20"/>
+
+        <Label
+            IsVisible="{Binding InputError}"
+            Text="{Binding ErrorText}"
+            TextColor="Red"
+            HorizontalOptions="Center"/>
+ 
+    </StackLayout>
+
+</ContentPage>
+ 
