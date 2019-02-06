@@ -29,21 +29,20 @@ If you have any questions during the challenge feel free to email Peter Samsonov
 
 # Overview of Solution
 
-In order to meet the requirements for this challenge, my solution follows the following general workflow:
+In order to meet the requirements for this challenge, my solution follows this general workflow:
 
 1. On opening of the application, the data from each csv file is parsed and an unweighted, directed graph data structure is constructed.
 2. The user is prompted to enter the IATA codes for an origin and destination airport.
-3. If the request is valid, a Breadth First Search is performed on the graph to find the shortest path between the origin and destination. If the user's search is invalid, the user will be notified.
-4. If a route is found, it is displayed on a map with a pin representing each airport and a path is traced onto the map to represent the route.
-If no route is found, the user will be notified.
+3. If the request is valid, a Breadth-First-Search is performed on the graph to find the shortest path between the origin and destination. If the user's search is invalid, the user will be notified.
+4. If a route is found, it is displayed on a map with a pin representing each airport and a path is traced onto the map to represent the route. If no route is found, the user will be notified.
 
 ### Graph and Search Algorithm
 
 An adjacency list representation of a graph is used to represent the network of flights. The list of airports with valid IATA codes are the vertices of this graph and the list of routes are unweighted, directed edges. Airports in the routes list which were not found in the airports list are excluded.
 
-To search this graph, a Breadth First Search is used. This algorithm is modified to keep reference of the "suborigin" airport for each vertex. If the destination airport is found, it is guaranteed to be the shortest path and should immediately be returned. The array of "suborigin" airports can then be used to trace backwards from the destination to the origin in order to return a list of airports from origin to destination.
+To search this graph, a Breadth-First-Search is used. This algorithm is extended so that each vertex can be traced back to the origin. This is done by keeping reference of how each visited airport was reached. If the destination airport is found, it is guaranteed to be the shortest path and should immediately be returned. The collection of previous airport transfers is used to trace the destination back to the origin in order to return a list of airports from origin to destination.
 
-### Consideration for Future Work
+### Considerations for Future Work
 
 Although this solution does meet all the requirements, there are several considerations which I would take were I to continue to work on this problem.
 
